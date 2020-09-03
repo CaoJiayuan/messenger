@@ -1,8 +1,10 @@
 package messenger
 
 import (
+	"encoding/json"
 	socketio "github.com/googollee/go-socket.io"
 	"net/http"
+	"reflect"
 )
 
 var (
@@ -80,6 +82,19 @@ func (s *Server) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 }
 
 func (s *Server) Broadcast(ev string, payload interface{}, channels ...string) {
+	pt := reflect.TypeOf(payload)
+	switch pt.Kind() {
+	case reflect.Struct:
+		fallthrough
+	case reflect.Ptr:
+		// to json
+		b, _ := json.Marshal(payload)
+		var v map[string]interface{}
+		e := json.Unmarshal(b, &v)
+		if e == nil {
+			payload = v
+		}
+	}
 
 	if len(channels) < 1 || hasWildcard(channels) {
 		s.io.BroadcastToRoom(DefaultNameSpace, "", "*::"+ev, payload)
