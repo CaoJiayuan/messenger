@@ -49,12 +49,14 @@ func (s *Server) RegisterEvents() *Server {
 	return s
 }
 
+//ServeIo only start io server
 func (s *Server) ServeIo() *Server {
 	go s.io.Serve()
 
 	return s
 }
 
+//Close io server
 func (s *Server) Close() error {
 	return s.io.Close()
 }
