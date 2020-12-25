@@ -58,6 +58,11 @@ func (s *Server) ServeIo() *Server {
 	return s
 }
 
+//GetIo get socket-io server
+func (s *Server) GetIo() *socketio.Server {
+	return s.io
+}
+
 //Close io server
 func (s *Server) Close() error {
 	return s.io.Close()
