@@ -2,9 +2,11 @@ package messenger
 
 import (
 	"encoding/json"
-	socketio "github.com/googollee/go-socket.io"
 	"net/http"
 	"reflect"
+
+	socketio "github.com/googollee/go-socket.io"
+	"github.com/googollee/go-socket.io/engineio"
 )
 
 var (
@@ -121,12 +123,8 @@ func hasWildcard(channels []string) bool {
 	return false
 }
 
-func NewServer() (*Server, error) {
-	io, err := socketio.NewServer(nil)
+func NewServer(opts ...*engineio.Options) *Server {
+	io := socketio.NewServer(opts[0])
 
-	if err != nil {
-		return nil, err
-	}
-
-	return &Server{io: io}, nil
+	return &Server{io: io}
 }
