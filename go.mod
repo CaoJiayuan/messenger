@@ -1,4 +1,4 @@
-module github.com/CaoJiayuan/messenger
+module messenger
 
 go 1.18
 

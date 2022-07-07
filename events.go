@@ -2,8 +2,9 @@ package messenger
 
 import (
 	"errors"
-	socketio "github.com/googollee/go-socket.io"
 	"strings"
+
+	socketio "github.com/googollee/go-socket.io"
 )
 
 var (

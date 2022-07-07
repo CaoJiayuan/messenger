@@ -124,7 +124,12 @@ func hasWildcard(channels []string) bool {
 }
 
 func NewServer(opts ...*engineio.Options) *Server {
-	io := socketio.NewServer(opts[0])
+	var opt *engineio.Options
+	if len(opts) > 0 {
+		opt = opts[0]
+	}
+
+	io := socketio.NewServer(opt)
 
 	return &Server{io: io}
 }
